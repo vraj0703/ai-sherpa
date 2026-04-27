@@ -1,0 +1,37 @@
+# manifest.toml — Onboarding Sherpa (v0.1.0)
+# Authority: CONSTITUTION.toml Article IV
+
+[meta]
+name      = "onboarding"
+version   = "0.1.0"
+authority = "CONSTITUTION.toml Article IV"
+status    = "active"
+
+[sherpa]
+purpose     = "Walk a new org through the variable registry, write org-config.toml, render the populated bundle from ai-constitution templates"
+language    = "python"
+entry_point = "main.py"
+model       = "none"
+invoked_by  = ["PM", "Mr. V"]
+reports_to  = "invoker"
+
+[invocation]
+command = "python -m ai_sherpa onboarding"
+args = [
+    "--output <dir>",
+    "--config-out <path>",
+    "--answers <path>",     # non-interactive, reads scripted answers (used by tests)
+    "--dry-run",            # walk the prompts but do not write
+    "--verbose",
+    "sync --output <dir>",  # re-render after a framework upgrade
+]
+
+[dependencies]
+python_packages = ["questionary>=2.0", "ai-constitution>=0.1.2"]
+node_packages   = []
+ollama_models   = []
+external        = ["ai-constitution submodule or pip install"]
+
+[mockability]
+dry_run         = true
+notes           = "--dry-run walks the prompts without writing. Tests use --answers + a fixture file for non-interactive runs."

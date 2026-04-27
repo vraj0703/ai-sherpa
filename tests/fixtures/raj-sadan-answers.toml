@@ -1,0 +1,50 @@
+# raj-sadan-answers.toml — scripted answers fixture for the e2e test.
+#
+# Used by tests/test_onboarding_e2e.py (RAJ-65) to drive the onboarding
+# sherpa non-interactively against raj-sadan's actual values, then diff
+# the rendered bundle against the live raj-sadan tree.
+#
+# Keys here mirror the questionary prompts in flow.py — each key is the
+# normalized form of the prompt (lowercased, punctuation stripped).
+# See flow.py::ScriptedPrompter._key for the exact transform.
+
+[answers]
+# org section
+"organization name"                                              = "Raj Sadan"
+"slug"                                                           = "raj-sadan"
+"tagline"                                                        = "A self-sufficient, sustainable home governed by the Constitution."
+"timezone"                                                       = "Asia/Kolkata"
+
+# pm section
+"your name"                                                      = "Vishal"
+"your title"                                                     = "Prime Minister"
+"your pronouns"                                                  = "he/him"
+"email"                                                          = ""
+
+# agent section
+"agent name"                                                     = "Mr. V"
+"agent title"                                                    = "Principal Secretary"
+"agent emoji"                                                    = "🏛️"
+"persona tone keywords"                                          = "Sharp, composed, efficient"
+"persona keywords"                                               = "architect, orchestrator, builder, judgment, craft"
+
+# ministries
+"which ministers to enable"                                      = ["planning", "design", "external_affairs", "resources", "review"]
+
+# sherpas
+"optional sherpas to enable"                                     = ["scrum", "design", "nextcloud", "crawler"]
+
+# protocols
+"which protocols to enable"                                      = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+
+# llm
+"ollama host"                                                    = "http://localhost:11434"
+"cloud llm provider"                                             = "anthropic"
+
+# services opt-ins (raj-sadan runs all five organs)
+"pick the organs your org runs"                                  = ["mind", "memory", "senses", "knowledge", "dashboard"]
+"where does your mind service listen"                            = "http://localhost:3486"
+"where does your memory service listen"                          = "http://localhost:3488"
+"where does your senses service listen"                          = "http://localhost:3487"
+"where does your knowledge service listen"                       = "http://localhost:3484"
+"where does your dashboard listen"                               = "http://localhost:3482"
