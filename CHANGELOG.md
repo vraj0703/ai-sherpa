@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.1.0] — 2026-04-27
+
+First public release. Closes M4 (RAJ-60 + RAJ-68 + RAJ-69 + RAJ-70).
+
 ### Added
 
 - Initial repository scaffold (RAJ-60): collection README, MIT, `pyproject.toml`, CI matrix on Python 3.10/3.11/3.12, `ai_sherpa/` Python package with CLI dispatcher.

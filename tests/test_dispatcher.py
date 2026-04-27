@@ -48,13 +48,13 @@ def _cli(*args: str) -> subprocess.CompletedProcess[str]:
 
 
 def test_version_exposed() -> None:
-    assert ai_sherpa.__version__ == "0.0.1"
+    assert ai_sherpa.__version__ == "0.1.0"
 
 
 def test_cli_version() -> None:
     result = _cli("--version")
     assert result.returncode == 0
-    assert "0.0.1" in result.stdout
+    assert "0.1.0" in result.stdout
 
 
 def test_cli_help() -> None:
