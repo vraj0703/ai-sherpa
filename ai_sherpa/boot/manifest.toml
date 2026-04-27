@@ -1,0 +1,27 @@
+# manifest.toml — Boot Sherpa (v2)
+# Authority: CONSTITUTION.toml Article IV
+# v2 unified sherpa schema. v1 original remains live at memory/boot/ during cutover.
+
+[meta]
+name            = "boot"
+version         = "2.0.0"
+authority       = "CONSTITUTION.toml Article IV"
+status          = "active"
+
+[sherpa]
+purpose         = "Initialize Raj Sadan — start Ollama, Pi SSH, services, WhatsApp, cron, scrum, memory summary, build cloud LLM prompt, hand over to Mr. V"
+language        = "python"
+entry_point     = "main.py"
+model           = "llama3.2:3b"
+invoked_by      = ["PM", "Mr. V", "Ministers"]
+reports_to      = "invoker"
+
+[invocation]
+command         = "python -m ai_sherpa boot"
+args            = ["--dry-run", "--no-whatsapp", "--no-cron", "--verbose"]
+
+[dependencies]
+python_packages = []
+node_packages   = []
+ollama_models   = ["llama3.2:3b", "phi3:latest"]
+external        = ["Ollama", "Raspberry Pi SSH", "WhatsApp gateway", "Cron service", "Claude Code CLI"]

@@ -1,0 +1,26 @@
+# manifest.toml — Scrum Sherpa (v2)
+# Authority: CONSTITUTION.toml Article IV
+
+[meta]
+name            = "scrum"
+version         = "2.0.0"
+authority       = "CONSTITUTION.toml Article IV"
+status          = "active"
+
+[sherpa]
+purpose         = "Read active plans from plans/, evaluate task dependencies, generate scrum board summary, send WhatsApp alerts for blockers and PM input"
+language        = "python"
+entry_point     = "main.py"
+model           = "llama3.2:3b"
+invoked_by      = ["PM", "Mr. V", "Cron"]
+reports_to      = "invoker"
+
+[invocation]
+command         = "python -m ai_sherpa scrum"
+args            = ["--dry-run", "--no-whatsapp", "--verbose"]
+
+[dependencies]
+python_packages = []
+node_packages   = []
+ollama_models   = ["llama3.2:3b", "phi3:latest"]
+external        = ["plans/ directory", "WhatsApp gateway"]

@@ -1,0 +1,28 @@
+# manifest.toml — <SHERPA NAME> Sherpa (TEMPLATE)
+# Authority: CONSTITUTION.toml Article IV
+#
+# Copy this directory to v2/sherpa/<name>/ and fill in all <PLACEHOLDER> values.
+
+[meta]
+name            = "<kebab-case-name>"
+version         = "2.0.0"
+authority       = "CONSTITUTION.toml Article IV"
+status          = "draft"
+
+[sherpa]
+purpose         = "<one-sentence description of what this sherpa does>"
+language        = "python"          # or "node"
+entry_point     = "main.py"         # or "main.js"
+model           = "gemma4:e4b"      # or "qwen2.5-coder:7b" | "llama3.2:3b" | "none"
+invoked_by      = ["PM", "Mr. V"]   # + "Ministers", "Cron" as applicable
+reports_to      = "invoker"
+
+[invocation]
+command         = "python -m ai_sherpa scaffold <new-name>"
+args            = ["--dry-run", "--verbose"]
+
+[dependencies]
+python_packages = []
+node_packages   = []
+ollama_models   = []
+external        = ["Nothing"]

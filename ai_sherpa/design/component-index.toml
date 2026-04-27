@@ -1,0 +1,363 @@
+# component-index.toml — Design Sherpa Component Index
+# The indexed reference for all Raj Sadan UI/UX components
+# Maintained by: Design Sherpa / Ministry of Design
+# Authority: CONSTITUTION.toml, Article IV
+
+[meta]
+version         = "1.0"
+updated         = "2026-03-14"
+css_file        = "design-system/dist/raj-sadan.css"
+tokens_file     = "design-system/dist/tokens.json"
+css_prefix      = "--rs"
+component_count = 8
+
+[token_categories]
+colors          = "--rs-color-{palette}-{shade} | palettes: primary/secondary/neutral/success/warning/error/info | shades: 50–900"
+surfaces        = "--rs-surface-background/primary/raised/border | --rs-text-primary/secondary/disabled"
+typography      = "--rs-font-size-display/h1/h2/h3/h4/h5/h6/body-lg/body/body-sm/caption/overline"
+spacing         = "--rs-space-2xs/xs/sm/md/lg/xl/2xl/3xl = 2/4/8/16/24/32/48/64px (4px grid)"
+shadows         = "--rs-shadow-flat/low/medium/high/overlay"
+radii           = "--rs-radius-none/sm/md/lg/xl/full = 0/4/8/12/16/9999px"
+z_index         = "--rs-z-base/dropdown/sticky/overlay/modal/popover/toast = 0/100/200/300/400/500/600"
+transitions     = "--rs-duration-instant/fast/normal/slow/slower | --rs-ease-default/in/out/in-out"
+
+# ─── Button ───
+
+[components.button]
+description     = "Primary interactive element for actions and form submissions"
+variants        = ["primary", "secondary", "ghost", "danger"]
+css_class       = ".rs-btn"
+key_tokens      = ["--rs-color-primary-500", "--rs-space-sm", "--rs-space-md", "--rs-radius-sm", "--rs-duration-normal"]
+html_template   = """
+<!-- Primary Button -->
+<button class="rs-btn rs-btn-primary">Action</button>
+
+<!-- Secondary Button -->
+<button class="rs-btn rs-btn-secondary">Cancel</button>
+
+<!-- Ghost Button -->
+<button class="rs-btn rs-btn-ghost">Learn More</button>
+
+<!-- Danger Button -->
+<button class="rs-btn rs-btn-danger">Delete</button>
+
+<!-- Disabled -->
+<button class="rs-btn rs-btn-primary" disabled aria-disabled="true">Disabled</button>
+
+<!-- With Icon -->
+<button class="rs-btn rs-btn-primary">
+  <span aria-hidden="true">→</span> Submit
+</button>
+"""
+usage_notes     = [
+  "min-height: 36px | min touch target: 44×44px",
+  "Focus ring: box-shadow 0 0 0 3px --rs-color-primary-200",
+  "Disabled: use both disabled attr and aria-disabled='true'",
+  "Transition: var(--rs-duration-normal) var(--rs-ease-default) on background-color",
+]
+
+# ─── Card ───
+
+[components.card]
+description     = "Container for grouping related content and actions"
+variants        = ["standard", "ministry", "task"]
+css_class       = ".rs-card"
+key_tokens      = ["--rs-shadow-low", "--rs-radius-md", "--rs-color-neutral-200", "--rs-space-md"]
+html_template   = """
+<!-- Standard Card -->
+<div class="rs-card">
+  <div class="rs-card-header"><h3>Title</h3></div>
+  <div class="rs-card-body">Content here</div>
+  <div class="rs-card-footer">Footer</div>
+</div>
+
+<!-- Ministry Card (accent border + status badge) -->
+<div class="rs-card rs-card-ministry">
+  <div class="rs-card-header">
+    <h3>Ministry of Planning</h3>
+    <span class="rs-badge rs-badge-active">Active</span>
+  </div>
+  <div class="rs-card-body">Strategy, architecture, roadmaps</div>
+</div>
+
+<!-- Task Card (priority stripe) -->
+<div class="rs-card rs-card-task" data-priority="high">
+  <div class="rs-card-header">
+    <h4>Build gateway CLI</h4>
+    <span class="rs-badge rs-badge-pending">Pending</span>
+  </div>
+  <div class="rs-card-body">Build the NextCloud gateway CLI tool</div>
+  <div class="rs-card-footer" style="font-size:var(--rs-font-size-caption);color:var(--rs-text-secondary)">2026-03-14</div>
+</div>
+"""
+usage_notes     = [
+  "Ministry card: 3px left border in --rs-color-primary-500, header-bg --rs-color-primary-50",
+  "Task card: 4px top border in semantic color based on data-priority (high=error, med=warning, low=info)",
+  "Hover elevates shadow from --rs-shadow-low to --rs-shadow-medium",
+  "Always include StatusBadge in ministry card headers",
+]
+
+# ─── StatusBadge ───
+
+[components.status_badge]
+description     = "Compact pill indicator showing the state of an entity (task, ministry, agent)"
+variants        = ["active", "pending", "completed", "error", "suspended"]
+css_class       = ".rs-badge"
+key_tokens      = ["--rs-color-success-50", "--rs-color-warning-50", "--rs-color-error-50", "--rs-color-info-50", "--rs-radius-full"]
+html_template   = """
+<!-- All Status Badge Variants -->
+<span class="rs-badge rs-badge-active">Active</span>
+<span class="rs-badge rs-badge-pending">Pending</span>
+<span class="rs-badge rs-badge-completed">Completed</span>
+<span class="rs-badge rs-badge-error">Failed</span>
+<span class="rs-badge rs-badge-suspended">Suspended</span>
+
+<!-- Accessible (with role + aria-label) -->
+<span class="rs-badge rs-badge-active" role="status" aria-label="Status: Active">
+  Active
+</span>
+"""
+usage_notes     = [
+  "Always include text label — never rely on color alone",
+  "Use role='status' for live status updates",
+  "6px dot rendered via CSS ::before pseudo-element (left of label)",
+  "border-radius: var(--rs-radius-full) — fully pill-shaped",
+]
+
+# ─── DataTable ───
+
+[components.data_table]
+description     = "Structured data display for registries, task lists, and reports"
+variants        = ["default", "striped", "compact"]
+css_class       = ".rs-table"
+key_tokens      = ["--rs-color-neutral-50", "--rs-color-primary-50", "--rs-color-neutral-200", "--rs-space-sm", "--rs-space-md"]
+html_template   = """
+<div class="rs-table-container">
+  <table class="rs-table" aria-label="Ministry Registry">
+    <thead>
+      <tr>
+        <th scope="col" class="rs-th" aria-sort="ascending">
+          Ministry <span class="rs-sort-indicator" aria-hidden="true">↑</span>
+        </th>
+        <th scope="col" class="rs-th">Status</th>
+        <th scope="col" class="rs-th">Domain</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="rs-tr">
+        <td class="rs-td">Planning</td>
+        <td class="rs-td"><span class="rs-badge rs-badge-active">Active</span></td>
+        <td class="rs-td">Strategy & Architecture</td>
+      </tr>
+      <tr class="rs-tr">
+        <td class="rs-td">Review</td>
+        <td class="rs-td"><span class="rs-badge rs-badge-active">Active</span></td>
+        <td class="rs-td">Quality Assurance</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="rs-table-pagination">
+    <span style="font-size:var(--rs-font-size-caption);color:var(--rs-text-secondary)">1–2 of 5</span>
+  </div>
+</div>
+"""
+usage_notes     = [
+  "Always scope='col' on th elements for screen readers",
+  "aria-sort must be updated dynamically (ascending/descending/none)",
+  "Header row: --rs-color-neutral-50 bg, 2px bottom border in --rs-color-neutral-300",
+  "Row hover: --rs-color-primary-50 | Striped alternate rows: --rs-color-neutral-50",
+]
+
+# ─── Navigation ───
+
+[components.navigation]
+description     = "Primary navigation structure for Raj Sadan dashboards"
+variants        = ["sidebar", "topbar"]
+css_class       = ".rs-nav-sidebar / .rs-nav-topbar"
+key_tokens      = ["--rs-color-primary-800", "--rs-color-primary-700", "--rs-color-primary-600", "--rs-color-neutral-0"]
+html_template   = """
+<!-- Sidebar Navigation (260px expanded, 64px collapsed) -->
+<nav class="rs-nav-sidebar" aria-label="Main navigation">
+  <div class="rs-nav-logo">
+    <span class="rs-nav-logo-icon">🏛️</span>
+    <span class="rs-nav-logo-text">Raj Sadan</span>
+  </div>
+  <ul class="rs-nav-list" role="list">
+    <li>
+      <a href="/dashboard" class="rs-nav-item rs-nav-item-active" aria-current="page">
+        <span class="rs-nav-icon" aria-hidden="true">📊</span>
+        <span class="rs-nav-label">Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a href="/ministries" class="rs-nav-item">
+        <span class="rs-nav-icon" aria-hidden="true">🏛️</span>
+        <span class="rs-nav-label">Ministries</span>
+        <span class="rs-badge rs-badge-active rs-nav-badge">5</span>
+      </a>
+    </li>
+    <li>
+      <a href="/plans" class="rs-nav-item">
+        <span class="rs-nav-icon" aria-hidden="true">📋</span>
+        <span class="rs-nav-label">Plans</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Topbar Navigation (56px height) -->
+<nav class="rs-nav-topbar" aria-label="Top navigation">
+  <a href="#main-content" class="rs-skip-link">Skip to main content</a>
+  <ul class="rs-nav-list" role="list">
+    <li><a href="#" class="rs-nav-item rs-nav-item-active" aria-current="page">Dashboard</a></li>
+    <li><a href="#" class="rs-nav-item">Ministries</a></li>
+    <li><a href="#" class="rs-nav-item">Plans</a></li>
+  </ul>
+</nav>
+"""
+usage_notes     = [
+  "Sidebar bg: --rs-color-primary-800 | Active item: --rs-color-primary-600 bg",
+  "Topbar bg: --rs-color-neutral-0 | Active: 2px bottom border in --rs-color-primary-500",
+  "Always include skip-link before topbar for keyboard/screen reader users",
+  "aria-current='page' on the active nav item",
+  "Collapsed sidebar (64px): hide .rs-nav-label, show only icons",
+]
+
+# ─── Alert ───
+
+[components.alert]
+description     = "Contextual feedback messages for system events and notifications"
+variants        = ["info", "success", "warning", "error"]
+css_class       = ".rs-alert"
+key_tokens      = ["--rs-color-info-50", "--rs-color-success-50", "--rs-color-warning-50", "--rs-color-error-50", "--rs-radius-md"]
+html_template   = """
+<!-- Info Alert (non-urgent) -->
+<div class="rs-alert rs-alert-info" role="status" aria-live="polite">
+  <span class="rs-alert-icon" aria-hidden="true">ℹ</span>
+  <div class="rs-alert-content">
+    <div class="rs-alert-title">System Notice</div>
+    <div class="rs-alert-body">Figma token expires 2026-06-05.</div>
+  </div>
+  <button class="rs-alert-close" aria-label="Dismiss alert">×</button>
+</div>
+
+<!-- Success Alert -->
+<div class="rs-alert rs-alert-success" role="status" aria-live="polite">
+  <span class="rs-alert-icon" aria-hidden="true">✓</span>
+  <div class="rs-alert-content">
+    <div class="rs-alert-title">Plan Closed</div>
+    <div class="rs-alert-body">Design System plan completed successfully.</div>
+  </div>
+</div>
+
+<!-- Warning Alert (urgent) -->
+<div class="rs-alert rs-alert-warning" role="alert" aria-live="assertive">
+  <span class="rs-alert-icon" aria-hidden="true">⚠</span>
+  <div class="rs-alert-title">Resource Threshold</div>
+</div>
+
+<!-- Error Alert (urgent) -->
+<div class="rs-alert rs-alert-error" role="alert" aria-live="assertive">
+  <span class="rs-alert-icon" aria-hidden="true">✕</span>
+  <div class="rs-alert-title">Pipeline Failed</div>
+</div>
+"""
+usage_notes     = [
+  "Errors + warnings: role='alert' + aria-live='assertive' (interrupts screen reader)",
+  "Info + success: role='status' + aria-live='polite' (waits its turn)",
+  "Icon must have aria-hidden='true' — the text carries the meaning",
+  "Left border: 4px solid --rs-color-{type}-500 | padding: var(--rs-space-md)",
+]
+
+# ─── Input ───
+
+[components.input]
+description     = "Form input elements for resident data entry"
+variants        = ["text", "select", "checkbox"]
+css_class       = ".rs-input / .rs-select / .rs-checkbox"
+key_tokens      = ["--rs-color-neutral-300", "--rs-color-primary-500", "--rs-color-error-500", "--rs-radius-sm", "--rs-color-primary-100"]
+html_template   = """
+<!-- Text Input (normal state) -->
+<div class="rs-field">
+  <label class="rs-label" for="task-name">
+    Task Name <span class="rs-required" aria-hidden="true">*</span>
+  </label>
+  <input class="rs-input" type="text" id="task-name" name="task-name"
+    aria-required="true" autocomplete="off" placeholder="e.g. Build gateway CLI">
+  <span class="rs-field-helper">Short, action-oriented task name</span>
+</div>
+
+<!-- Text Input (error state) -->
+<div class="rs-field rs-field-error">
+  <label class="rs-label" for="channel-id">Channel ID</label>
+  <input class="rs-input rs-input-error" type="text" id="channel-id"
+    aria-describedby="channel-id-error" aria-invalid="true">
+  <span class="rs-field-error-text" id="channel-id-error" role="alert">
+    Channel ID must be alphanumeric
+  </span>
+</div>
+
+<!-- Select -->
+<div class="rs-field">
+  <label class="rs-label" for="ministry-select">Assign Ministry</label>
+  <select class="rs-select" id="ministry-select" name="ministry">
+    <option value="">Select a ministry</option>
+    <option value="planning">Planning</option>
+    <option value="review">Review</option>
+    <option value="external-affairs">External Affairs</option>
+  </select>
+</div>
+
+<!-- Checkbox -->
+<label class="rs-checkbox-label">
+  <input class="rs-checkbox" type="checkbox" id="confirm" aria-required="true">
+  <span>Confirm this action</span>
+</label>
+"""
+usage_notes     = [
+  "NEVER use placeholder as the only label — always provide a visible <label>",
+  "Link error text via aria-describedby on the input",
+  "Input height: 40px | Focus ring: 0 0 0 3px --rs-color-primary-100",
+  "Error state: border --rs-color-error-500 + ring --rs-color-error-100",
+  "Required fields: aria-required='true' + visible asterisk (*) indicator",
+]
+
+# ─── Avatar ───
+
+[components.avatar]
+description     = "Visual identifier for ministries, users, and AI agents"
+variants        = ["ministry", "user"]
+sizes           = ["xs=24px", "sm=32px", "md=40px", "lg=48px", "xl=64px"]
+css_class       = ".rs-avatar"
+key_tokens      = ["--rs-color-primary-100", "--rs-color-primary-700", "--rs-radius-full", "--rs-radius-md"]
+html_template   = """
+<!-- User Avatars (circle — border-radius: full) -->
+<div class="rs-avatar rs-avatar-xs rs-avatar-user" aria-label="Vishal">V</div>
+<div class="rs-avatar rs-avatar-sm rs-avatar-user" aria-label="Vishal">V</div>
+<div class="rs-avatar rs-avatar-md rs-avatar-user" aria-label="Vishal">V</div>
+<div class="rs-avatar rs-avatar-lg rs-avatar-user" aria-label="Vishal">V</div>
+<div class="rs-avatar rs-avatar-xl rs-avatar-user" aria-label="Vishal">V</div>
+
+<!-- User Avatar with online status dot -->
+<div class="rs-avatar rs-avatar-md rs-avatar-user" aria-label="Vishal (Online)">
+  V
+  <span class="rs-avatar-status rs-avatar-status-online">
+    <span class="rs-sr-only">Online</span>
+  </span>
+</div>
+
+<!-- Ministry Avatar (rounded square — border-radius: md) -->
+<div class="rs-avatar rs-avatar-md rs-avatar-ministry" aria-label="Ministry of Planning">
+  📋
+</div>
+<div class="rs-avatar rs-avatar-md rs-avatar-ministry" aria-label="Ministry of Design">
+  🎨
+</div>
+"""
+usage_notes     = [
+  "User: border-radius var(--rs-radius-full) — circle shape",
+  "Ministry: border-radius var(--rs-radius-md) — rounded square",
+  "Initials fallback: first letter, --rs-color-primary-700 text on --rs-color-primary-100 bg",
+  "Status dot: bottom-right, online=--rs-color-success-500, away=--rs-color-warning-500",
+  "Always aria-label with entity name (include status if present)",
+]

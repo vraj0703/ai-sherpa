@@ -1,0 +1,26 @@
+# manifest.toml — Crawler Sherpa (v2)
+# Authority: CONSTITUTION.toml Article IV
+
+[meta]
+name            = "crawler"
+version         = "2.0.0"
+authority       = "CONSTITUTION.toml Article IV"
+status          = "active"
+
+[sherpa]
+purpose         = "Discover new APIs, tools, and services from curated web sources (public-apis, free-for-dev, Exa) and import into Knowledge Service after LLM classification and dedup"
+language        = "python"
+entry_point     = "main.py"
+model           = "qwen2.5-coder:7b"
+invoked_by      = ["PM", "Mr. V", "Cron"]
+reports_to      = "invoker"
+
+[invocation]
+command         = "python -m ai_sherpa crawler"
+args            = ["--discover", "--source <url>", "--report", "--dry-run", "--verbose"]
+
+[dependencies]
+python_packages = []
+node_packages   = []
+ollama_models   = ["qwen2.5-coder:7b", "llama3.2:3b"]
+external        = ["Knowledge Service (http://127.0.0.1:3484)", "GitHub API", "Exa API (EXA_API_KEY)"]

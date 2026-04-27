@@ -1,0 +1,26 @@
+# manifest.toml — Design Sherpa (v2)
+# Authority: CONSTITUTION.toml Article IV
+
+[meta]
+name            = "design"
+version         = "2.0.0"
+authority       = "CONSTITUTION.toml Article IV"
+status          = "active"
+
+[sherpa]
+purpose         = "Indexed design intelligence — provide component specs, tokens, and production-ready HTML/CSS from the Raj Sadan Design System; fulfill freeform design requests via local LLM"
+language        = "python"
+entry_point     = "main.py"
+model           = "qwen2.5-coder:7b"
+invoked_by      = ["PM", "Mr. V", "Ministers"]
+reports_to      = "invoker"
+
+[invocation]
+command         = "python -m ai_sherpa design"
+args            = ["--list", "--component <name>", "--token <name>", "--request <text>", "--dry-run"]
+
+[dependencies]
+python_packages = []
+node_packages   = []
+ollama_models   = ["qwen2.5-coder:7b", "qwen2.5:14b"]
+external        = ["component-index.toml (co-located)"]

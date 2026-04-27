@@ -1,0 +1,27 @@
+# manifest.toml — Exit Sherpa (v2)
+# Authority: CONSTITUTION.toml Article IV
+# Mechanical shutdown — no LLM. All cognitive work done by Mr. V before invocation (PROTOCOL-12).
+
+[meta]
+name            = "exit"
+version         = "2.0.0"
+authority       = "CONSTITUTION.toml Article IV"
+status          = "active"
+
+[sherpa]
+purpose         = "Mechanical shutdown of Raj Sadan — set session flag, stop Cortex, notify, stop services in parallel, save checkpoint, verify, validate cognitive state"
+language        = "python"
+entry_point     = "main.py"
+model           = "none"
+invoked_by      = ["PM", "Mr. V", "Ministers"]
+reports_to      = "invoker"
+
+[invocation]
+command         = "python -m ai_sherpa exit"
+args            = ["--dry-run", "--no-whatsapp", "--no-memory", "--verbose", "--memo"]
+
+[dependencies]
+python_packages = []
+node_packages   = []
+ollama_models   = []
+external        = ["Cortex", "WhatsApp gateway", "NextCloud (checkpoint)", "Senses", "Knowledge", "Dashboard", "Cron"]
