@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.1.2] — 2026-04-29
+
+### Added (release pipeline)
+
+- `.github/workflows/release.yml` — tag-triggered PyPI publish via OIDC trusted publishing. Tagging `vX.Y.Z` runs pytest, builds sdist+wheel, twine check, publishes to pypi.org, creates a GitHub Release with notes from CHANGELOG section. No API tokens (PyPI federated identity).
+
 ### Added (M3 — RAJ-61 + RAJ-62 + RAJ-63 + RAJ-64 + RAJ-65)
 
 - **`ai_sherpa/onboarding/`** — interactive onboarding sherpa.
